@@ -86,10 +86,10 @@ public class DreadNot extends AdvancedRobot {
         // Replace the next line with any behavior you would like
         double wallDirection = e.getBearing();
         if (wallDirection < 0) {
-            turnLeft(wallDirection % 90);
+            turnLeft(wallDirection + 135);
         }
         else {
-            turnRight(wallDirection % 90);
+            turnRight(wallDirection - 135);
         }
         ahead(100);
     }
