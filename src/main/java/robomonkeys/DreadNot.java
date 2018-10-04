@@ -41,8 +41,7 @@ public class DreadNot extends AdvancedRobot {
             double y = this.getY();
             ahead(speed);
             turnRightRadians((Math.PI/16.0) * Math.cos(x + speed));
-            turnGunRightRadians(Math.PI/angleFrag);
-            turnRadarRight(Math.PI/angleFrag);
+            turnGunRight(180);
         }
     }
 
@@ -52,8 +51,6 @@ public class DreadNot extends AdvancedRobot {
     public void onScannedRobot(ScannedRobotEvent e) {
         // guess where the enemy is heading
         fire(50);
-        turnLeft(45);
-
     }
 
     /**
