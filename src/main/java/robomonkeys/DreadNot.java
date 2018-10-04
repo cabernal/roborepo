@@ -25,14 +25,15 @@ public class DreadNot extends AdvancedRobot {
         Random rand = new Random();
         double battleFieldHeight = this.getBattleFieldHeight();
         double battleFieldWidth = this.getBattleFieldWidth();
+        double speed = 75;
 
 
         // Robot main loop
         while (true) {
             double x = this.getX();
             double y = this.getY();
-            ahead(x + 5);
-            turnRightRadians((Math.PI/4.0) * Math.cos(this.getHeadingRadians()));
+            ahead(speed);
+            turnRightRadians((Math.PI/16.0) * Math.cos(x + speed));
         }
     }
 
@@ -41,7 +42,9 @@ public class DreadNot extends AdvancedRobot {
      */
     public void onScannedRobot(ScannedRobotEvent e) {
         // Replace the next line with any behavior you would like
-        fire(20);
+        fire(50);
+        turnLeft(45);
+
     }
 
     /**
@@ -49,7 +52,8 @@ public class DreadNot extends AdvancedRobot {
      */
     public void onHitByBullet(HitByBulletEvent e) {
         // Replace the next line with any behavior you would like
-        back(10);
+        turnLeft(45);
+        ahead(150);
     }
 
     /**
@@ -58,7 +62,7 @@ public class DreadNot extends AdvancedRobot {
     public void onHitWall(HitWallEvent e) {
         // Replace the next line with any behavior you would like
         turnLeft(180);
-//        back(20);
+        ahead(150);
     }
 
     private void goToFieldCorner(double botX, double botY, double fieldX, double fieldY){
