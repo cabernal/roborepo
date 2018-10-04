@@ -27,7 +27,7 @@ public class DreadNot extends AdvancedRobot {
         // After trying out your robot, try uncommenting the import at the top,
         // and the next line:
 
-        setColors(Color.blue, Color.blue, Color.blue); // body,gun,radar
+        setColors(Color.blue, Color.black, Color.black); // body,gun,radar
         Random rand = new Random();
         double battleFieldHeight = this.getBattleFieldHeight();
         double battleFieldWidth = this.getBattleFieldWidth();
