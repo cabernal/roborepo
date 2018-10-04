@@ -9,7 +9,7 @@ import java.awt.*;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
-public class ChaosMonkey extends Robot {
+public class DreadNot extends Robot {
     /**
      * run: MyInitialRobot's default behavior
      */
