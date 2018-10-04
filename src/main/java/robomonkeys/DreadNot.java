@@ -88,6 +88,10 @@ public class DreadNot extends AdvancedRobot {
     public void onHitWall(HitWallEvent e) {
         // Replace the next line with any behavior you would like
         double wallDirection = e.getBearing();
+        onHitObject(wallDirection);
+    }
+
+    private void onHitObject(double wallDirection) {
         if (wallDirection < 0) {
             turnLeft(wallDirection + 135);
         }
@@ -95,6 +99,11 @@ public class DreadNot extends AdvancedRobot {
             turnRight(wallDirection - 135);
         }
         ahead(100);
+    }
+
+    @Override
+    public void onHitRobot(HitRobotEvent e){
+        onHitObject(e.getBearing());
     }
 
     private int getRandomInt(int max) {
