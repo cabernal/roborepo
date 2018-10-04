@@ -50,7 +50,33 @@ public class DreadNot extends AdvancedRobot {
      */
     public void onScannedRobot(ScannedRobotEvent e) {
         // guess where the enemy is heading
-        fire(50);
+        setFire(Math.min(400 / e.getDistance(), 3));
+
+        // If our target is too far away, turn and move toward it.
+        if (e.getDistance() > 150) {
+            double gunTurnAmt = robocode.util.Utils.normalRelativeAngleDegrees(e.getBearing() + (getHeading() - getRadarHeading()));
+
+            turnGunRight(gunTurnAmt); // Try changing these to setTurnGunRight,
+            turnRight(e.getBearing()); // and see how much Tracker improves...
+            // (you'll have to make Tracker an AdvancedRobot)
+            ahead(e.getDistance() - 140);
+            return;
+        }
+
+        // Our target is close.
+        double gunTurnAmt = robocode.util.Utils.normalRelativeAngleDegrees(e.getBearing() + (getHeading() - getRadarHeading()));
+        turnGunRight(gunTurnAmt);
+        fire(3);
+
+        // Our target is too close!  Back up.
+        if (e.getDistance() < 100) {
+            if (e.getBearing() > -90 && e.getBearing() <= 90) {
+                back(40);
+            } else {
+                ahead(40);
+            }
+        }
+        scan();
     }
 
     /**
