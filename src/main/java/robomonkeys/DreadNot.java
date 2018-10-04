@@ -32,6 +32,7 @@ public class DreadNot extends AdvancedRobot {
         double battleFieldHeight = this.getBattleFieldHeight();
         double battleFieldWidth = this.getBattleFieldWidth();
         double speed = 75;
+        double angleFrag = 4;
 
 
         // Robot main loop
@@ -40,6 +41,8 @@ public class DreadNot extends AdvancedRobot {
             double y = this.getY();
             ahead(speed);
             turnRightRadians((Math.PI/16.0) * Math.cos(x + speed));
+            turnGunRightRadians(Math.PI/angleFrag);
+            turnRadarRight(Math.PI/angleFrag);
         }
     }
 
@@ -47,7 +50,7 @@ public class DreadNot extends AdvancedRobot {
      * onScannedRobot: What to do when you see another robot
      */
     public void onScannedRobot(ScannedRobotEvent e) {
-        // Replace the next line with any behavior you would like
+        // guess where the enemy is heading
         fire(50);
         turnLeft(45);
 
