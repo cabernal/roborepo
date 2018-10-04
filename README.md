@@ -3,8 +3,8 @@
 ## To start a new RoboCode robot project
 
 - clone this project
-- change the package and class name from "teamname.RobotName" to whatever's appropriate
-- rename the properites file from teamname/RobotName.properties to agree with the class name
+- change the package and class name from "robomonkeys.ChaosMonkey" to whatever's appropriate
+- rename the properites file from robomonkeys/RobotName.properties to agree with the class name
 - inside the properties file, set robot.classname to the fully qualified classname of your Robot
 - for good measure, in the pom.xml change the groupId to your package name and the artifactId to you Robot class name.
 

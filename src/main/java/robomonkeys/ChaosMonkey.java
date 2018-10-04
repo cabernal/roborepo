@@ -1,4 +1,4 @@
-package teamname;
+package robomonkeys;
 
 import robocode.HitByBulletEvent;
 import robocode.HitWallEvent;
@@ -9,7 +9,7 @@ import java.awt.*;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
-public class RobotName extends Robot {
+public class ChaosMonkey extends Robot {
     /**
      * run: MyInitialRobot's default behavior
      */
