@@ -1,15 +1,17 @@
 package robomonkeys;
 
-import robocode.HitByBulletEvent;
-import robocode.HitWallEvent;
+import robocode.*;
 import robocode.Robot;
-import robocode.ScannedRobotEvent;
+
+import java.util.Random;
+
+
 
 import java.awt.*;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
-public class DreadNot extends Robot {
+public class DreadNot extends AdvancedRobot {
     /**
      * run: MyInitialRobot's default behavior
      */
@@ -20,14 +22,17 @@ public class DreadNot extends Robot {
         // and the next line:
 
         setColors(Color.blue, Color.blue, Color.blue); // body,gun,radar
+        Random rand = new Random();
+        double battleFieldHeight = this.getBattleFieldHeight();
+        double battleFieldWidth = this.getBattleFieldWidth();
+
 
         // Robot main loop
         while (true) {
-            // Replace the next 4 lines with any behavior you would like
-            ahead(100);
-            turnGunRight(360);
-            back(100);
-            turnGunRight(360);
+            double x = this.getX();
+            double y = this.getY();
+            ahead(x + 5);
+            turnRightRadians((Math.PI/4.0) * Math.cos(this.getHeadingRadians()));
         }
     }
 
@@ -36,7 +41,7 @@ public class DreadNot extends Robot {
      */
     public void onScannedRobot(ScannedRobotEvent e) {
         // Replace the next line with any behavior you would like
-        fire(10);
+        fire(20);
     }
 
     /**
@@ -52,6 +57,12 @@ public class DreadNot extends Robot {
      */
     public void onHitWall(HitWallEvent e) {
         // Replace the next line with any behavior you would like
-        back(20);
+        turnLeft(180);
+//        back(20);
+    }
+
+    private void goToFieldCorner(double botX, double botY, double fieldX, double fieldY){
+        // find corner
+
     }
 }
