@@ -50,7 +50,7 @@ public class DreadNot extends AdvancedRobot {
      */
     public void onScannedRobot(ScannedRobotEvent e) {
         // guess where the enemy is heading
-        fire(50);
+        fire(1);
     }
 
     /**
@@ -101,6 +101,14 @@ public class DreadNot extends AdvancedRobot {
     @Override
     public void onHitRobot(HitRobotEvent e){
         onHitObject(e.getBearing());
+    }
+
+    @Override
+    public void onWin(WinEvent event) {
+        for (int i = 0; i < 10; i++) {
+            ahead(50);
+            back(50);
+        }
     }
 
     private int getRandomInt(int max) {
