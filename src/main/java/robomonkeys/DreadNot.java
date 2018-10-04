@@ -6,10 +6,16 @@ import robocode.Robot;
 import robocode.ScannedRobotEvent;
 
 import java.awt.*;
+import java.util.Random;
 
 // API help : http://robocode.sourceforge.net/docs/robocode/robocode/Robot.html
 
 public class DreadNot extends Robot {
+
+    private Random randomNumberGenerator = new Random();
+    private static int AHEAD = 1;
+    private static int BACK = 2;
+
     /**
      * run: MyInitialRobot's default behavior
      */
@@ -43,8 +49,26 @@ public class DreadNot extends Robot {
      * onHitByBullet: What to do when you're hit by a bullet
      */
     public void onHitByBullet(HitByBulletEvent e) {
-        // Replace the next line with any behavior you would like
-        back(10);
+        String assailant = e.getName();
+        System.out.println("Curse you, " + assailant + "!");
+
+        double bulletDirection = e.getBearing();
+
+        if (bulletDirection < 0) {
+            turnRight(bulletDirection + 90);
+        } else {
+            turnLeft( bulletDirection - 90);
+        }
+
+        int randomDistance = getRandomInt(100);
+        int randomDirection = getRandomInt(2);
+
+        if (randomDirection == AHEAD) {
+            ahead(randomDistance);
+        }
+        else {
+            back(randomDistance);
+        }
     }
 
     /**
@@ -52,6 +76,17 @@ public class DreadNot extends Robot {
      */
     public void onHitWall(HitWallEvent e) {
         // Replace the next line with any behavior you would like
-        back(20);
+        double wallDirection = e.getBearing();
+        if (wallDirection < 0) {
+            turnLeft(wallDirection % 90);
+        }
+        else {
+            turnRight(wallDirection % 90);
+        }
+        ahead(100);
+    }
+
+    private int getRandomInt(int max) {
+        return randomNumberGenerator.nextInt(max) + 1;
     }
 }
