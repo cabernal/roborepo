@@ -29,18 +29,11 @@ public class DreadNot extends AdvancedRobot {
      * run: MyInitialRobot's default behavior
      */
     public void run() {
-        double WEST_BOUNDARY = 20;
-        double EAST_BOUNDARY = getBattleFieldWidth() - 20;
-        double NORTH_BOUNDARY = getBattleFieldHeight() - 20;
-        double SOUTH_BOUNDARY = 20;
-
-        setColors(Color.blue, Color.blue, Color.blue); // body,gun,radar
+        setColors(Color.blue, Color.black, Color.black); // body,gun,radar
 
         int currentWall = goToRandomWall();
         turnLeft(90);
-//        turnGunLeft(90);
-//        turnLeftOrRight(currentWall);
-//        goToCornerAlongWall();
+        turnGunLeft(90);
 
         double speed = 75;
         double angleFrag = 4;
@@ -49,24 +42,7 @@ public class DreadNot extends AdvancedRobot {
         int tick = 0;
         // Robot main loop
         while (true) {
-            tick = (tick + 1) % 2;
-            if (tick == 1) {
-                turnGunLeft(180);
-            }
-            else {
-                turnGunRight(180);
-            }
-            double currentX = getX();
-            double currentY = getY();
-
-//            if (currentX > WEST_BOUNDARY && currentX < EAST_BOUNDARY && currentY > SOUTH_BOUNDARY && currentY < NORTH_BOUNDARY) {
-//                ahead(20);
-//            }
-//            double x = this.getX();
-//            double y = this.getY();
             ahead(speed);
-//            turnRightRadians((Math.PI/16.0) * Math.cos(x + speed));
-            turnGunRight(180);
         }
     }
 
@@ -75,53 +51,14 @@ public class DreadNot extends AdvancedRobot {
      */
     public void onScannedRobot(ScannedRobotEvent e) {
         // guess where the enemy is heading
-        fire(50);
-    }
-
-    /**
-     * onHitByBullet: What to do when you're hit by a bullet
-     */
-    public void onHitByBullet(HitByBulletEvent e) {
-        String assailant = e.getName();
-        System.out.println("Curse you, " + assailant + "!");
-
-        double bulletDirection = e.getBearing();
-
-        if (bulletDirection < 0) {
-            turnRight(bulletDirection + 90);
-        } else {
-            turnLeft( bulletDirection - 90);
-        }
-
-        int randomDistance = getRandomInt(100);
-        int randomDirection = getRandomInt(2);
-
-        if (randomDirection == AHEAD) {
-            ahead(randomDistance);
-        }
-        else {
-            back(randomDistance);
-        }
+        fire(1);
     }
 
     /**
      * onHitWall: What to do when you hit a wall
      */
     public void onHitWall(HitWallEvent e) {
-        // Replace the next line with any behavior you would like
-//        double wallDirection = e.getBearing();
-//        onHitObject(wallDirection);
-        goToRandomWall();
-    }
-
-    private void onHitObject(double wallDirection) {
-        if (wallDirection < 0) {
-            turnLeft(wallDirection + 135);
-        }
-        else {
-            turnRight(wallDirection - 135);
-        }
-        ahead(100);
+        turnLeft(90);
     }
 
     @Override
@@ -131,11 +68,6 @@ public class DreadNot extends AdvancedRobot {
 
     private int getRandomInt(int max) {
         return randomNumberGenerator.nextInt(max) + 1;
-    }
-
-    private void goToFieldCorner(double botX, double botY, double fieldX, double fieldY){
-        // find corner
-
     }
 
     private int goToRandomWall() {
@@ -163,66 +95,4 @@ public class DreadNot extends AdvancedRobot {
         }
         return randomWall;
     }
-
-    private void goToCornerAlongWall() {
-        if (getHeading() == 0) {
-            ahead(getBattleFieldHeight() - getY() - 20);
-        }
-        else if (getHeading() == 90) {
-            ahead(getBattleFieldWidth() - getX() - 20);
-        }
-        else if (getHeading() == 180) {
-            ahead(getY() - 20);
-        }
-        else {
-            ahead(getX() - 20);
-        }
-    }
-
-    private void turnLeftOrRight(int currentWall) {
-        int randomDirection = getRandomInt(2);
-        if (randomDirection == LEFT) {
-            turnLeft(90);
-//            turnGunLeft(90);
-        }
-        else {
-            turnRight(90);
-//            turnGunRight(90);
-        }
-
-        double gunHeading = getGunHeading();
-        if (currentWall == NORTH) {
-            if (gunHeading < 180) {
-                turnGunRight(180 - gunHeading);
-            }
-            else {
-                turnGunLeft(gunHeading - 180);
-            }
-        }
-        else if (currentWall == EAST) {
-            if (gunHeading > 270 || gunHeading < 90) {
-                turnGunLeft((gunHeading + 90) % 360);
-            }
-            else {
-                turnGunRight(270 - gunHeading);
-            }
-        }
-        else if (currentWall == SOUTH) {
-            if (gunHeading < 180) {
-                turnGunLeft(gunHeading);
-            }
-            else {
-                turnGunRight(360 - gunHeading);
-            }
-        }
-        else {
-            if (gunHeading > 270 || gunHeading < 90) {
-                turnGunRight((90 - gunHeading + 360) % 360);
-            }
-            else {
-                turnGunLeft(gunHeading - 90);
-            }
-        }
-    }
-
 }
